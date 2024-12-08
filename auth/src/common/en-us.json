@@ -1,0 +1,7 @@
+{
+  "jwt-token-expire": "Jwt token is invalid, please login again",
+  "unathorized": "You are not authorized to proceed",
+  "email-not-allowed": "Email is not allowed to change",
+  "password-not-allowed": "Password is not allow to change here, please do reset password",
+  "wrong-creds": "Credentials is wrong, please try again"
+}
