@@ -1,7 +1,7 @@
 const cookieParser = require("cookie-parser");
 const express = require("express");
 const errorMiddleware = require("./middlewares/errorMiddleware");
-const { adminRouter } = require("./routes/adminRouter");
+const adminRouter = require("./routes/adminRoutes");
 const app = express();
 
 // Global middleware
