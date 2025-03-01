@@ -65,6 +65,11 @@ const adminSchema = new mongoose.Schema(
       },
       default: "user",
     },
+    isUserDeleted: {
+      type: Boolean,
+      require: true,
+      default: false,
+    },
     address: {
       country: {
         type: String,

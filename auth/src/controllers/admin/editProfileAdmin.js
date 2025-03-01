@@ -1,4 +1,4 @@
-const { STATUS_CODE } = require("../../common/statusCode");
+const { STATUS_CODE } = require("../../common/common");
 const ErrorHandler = require("../../helpers/errorHandler");
 const Admin = require("../../models/adminModel");
 const sentense = require("../../common/en-us.json");
@@ -21,15 +21,29 @@ const editProfileAdmin = async (req, res, next) => {
         STATUS_CODE.CLIENT_BAD_REQUEST
       );
     }
-    if ((role && req.role === ROLES.ADMIN) || createdBy) {
+    if (role || createdBy) {
       throw new ErrorHandler(
         sentense["unathorized"],
         STATUS_CODE.CLIENT_BAD_REQUEST
       );
     }
-    const adminSavedData = await Admin.findByIdAndUpdate(_id, adminRequest, {
-      returnDocument: "after",
-    });
+    const adminSavedData = await Admin.findOneAndUpdate(
+      {
+        _id,
+        isUserDeleted: false,
+      },
+      adminRequest,
+      {
+        returnDocument: "after",
+      }
+    );
+
+    if (!adminSavedData) {
+      throw new ErrorHandler(
+        sentense["user-deleted"],
+        STATUS_CODE.CLIENT_BAD_REQUEST
+      );
+    }
 
     res.status(STATUS_CODE.SUCCESS).json({
       adminSavedData,

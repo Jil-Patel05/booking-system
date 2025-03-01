@@ -2,7 +2,7 @@ const jwt = require("jsonwebtoken");
 const ErrorHandler = require("../helpers/errorHandler");
 const { ROLES } = require("../models/enums");
 const sentense = require("../common/en-us.json");
-const { STATUS_CODE } = require("../common/statusCode");
+const { STATUS_CODE } = require("../common/common");
 
 const adminAuth = (req, res, next) => {
   const token = req.cookies.token;
@@ -15,8 +15,7 @@ const adminAuth = (req, res, next) => {
       );
     }
     const payload = jwt.decode(token);
-    console.log(payload);
-    if (payload.role !== ROLES.MASTER_ADMIN && payload.role !== ROLES.ADMIN) {
+    if (payload.role !== ROLES.ADMIN) {
       throw new ErrorHandler(sentense["unathorized"], STATUS_CODE.UNAUTHORIZED);
     }
     req.role = payload.role;

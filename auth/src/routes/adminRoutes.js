@@ -4,16 +4,34 @@ const { masterAdminAuth } = require("../middlewares/masterAdminAuth");
 const { adminAuth } = require("../middlewares/adminAuth");
 const {
   editProfileAdmin,
-  resetAdminPassword,
+  resetFirstAdminPassword,
   createAdmin,
   loginAdmin,
   logoutAdmin,
+  editAdmin,
+  getSingleAdmin,
+  deleteAdmin,
+  getUsers,
+  resetPassword,
+  setPassword,
 } = require("../controllers/admin");
+const {
+  masterAdminAndAdminAuth,
+} = require("../middlewares/masterAdminAndAdminAuth");
 
-router.post("/createadmin", masterAdminAuth, createAdmin);
-router.patch("/editprofile", adminAuth, editProfileAdmin);
-router.patch("/resetpassword", adminAuth, resetAdminPassword);
+// masterAdmin and admin common things
 router.get("/login", loginAdmin);
-router.post("/logout", adminAuth, logoutAdmin);
+router.post("/logout", masterAdminAndAdminAuth, logoutAdmin);
+router.patch("/editprofile", adminAuth, editProfileAdmin);
+router.patch("/resetfirstpassword", adminAuth, resetFirstAdminPassword);
+router.patch("/passwordreset", adminAuth, resetPassword);
+router.patch("/setpassword", adminAuth, setPassword);
+
+// masterAdmin things
+router.get("/editadmin", masterAdminAuth, editAdmin);
+router.get("/getsingleadmin/:id", masterAdminAuth, getSingleAdmin);
+router.get("/getadmins", masterAdminAuth, getUsers);
+router.post("/createadmin", masterAdminAuth, createAdmin);
+router.patch("/deleteadmin/:id", masterAdminAuth, deleteAdmin);
 
 module.exports = router;

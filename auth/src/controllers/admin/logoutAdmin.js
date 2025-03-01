@@ -1,4 +1,4 @@
-const { STATUS_CODE } = require("../../common/statusCode");
+const { STATUS_CODE } = require("../../common/common");
 
 const logoutAdmin = (req, res, next) => {
   res.cookie("token", null, {
@@ -7,6 +7,7 @@ const logoutAdmin = (req, res, next) => {
   });
 
   res.status(STATUS_CODE.SUCCESS).json({
+    success: true,
     message: "Logged Out",
   });
 };

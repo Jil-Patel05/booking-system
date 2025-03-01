@@ -9,7 +9,7 @@ connectMongo()
       `mongoDB connected successfully with server ${res.connection.host}`
     );
     app.listen(PORT, () => {
-      console.log(`Server is listing on port ${PORT}`);
+      console.log(`Auth is listing on port ${PORT}`);
     });
   })
   .catch((err) => {

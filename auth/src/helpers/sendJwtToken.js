@@ -1,4 +1,4 @@
-const { STATUS_CODE } = require("../common/statusCode");
+const { STATUS_CODE } = require("../common/common");
 
 const sendJwtTokenToUser = (user, res) => {
   const token = user.getJWTToken();

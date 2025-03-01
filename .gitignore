@@ -1,2 +1,9 @@
 auth/node_modules
-auth/src/config.env
+auth/src/config/config.env
+
+movieBooking/node_modules
+# auth/src/config/config.env
+
+notification/node_modules
+notification/src/config/config.env
+
