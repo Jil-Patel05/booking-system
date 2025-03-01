@@ -6,10 +6,10 @@ const app = express();
 
 // Global middleware
 app.use(express.json());
-app.use(cookieParser);
+app.use(cookieParser());
 
 // routes
-app.use("/auth/admin", adminRouter);
+app.use("/movie/admin", adminRouter);
 // app.use("/auth/owner", ownerRouter);
 // app.use("/auth/user", userRouter);
 

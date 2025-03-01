@@ -1,7 +1,6 @@
-/auth/node_modules
+auth/node_modules
 
 movieBooking/node_modules
-# auth/src/config/config.env
 
 notification/node_modules
 
