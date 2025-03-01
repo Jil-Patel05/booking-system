@@ -16,6 +16,13 @@ const EMAIL_SUBJECTS = Object.freeze({
   RESET_PASSWORD: "Reset password",
 });
 
+const ROLES = Object.freeze({
+  MASTER_ADMIN: "masterAdmin",
+  ADMIN: "admin",
+  OWNER: "owner",
+  USER: "user",
+});
+
 const PAGE_SIZE = 10;
 
-module.exports = { STATUS_CODE, PAGE_SIZE, TOPICS, EMAIL_SUBJECTS };
+module.exports = { STATUS_CODE, PAGE_SIZE, TOPICS, EMAIL_SUBJECTS, ROLES };

@@ -1,3 +1,16 @@
 {
-    
-}
+    "jwt-token-expire": "Jwt token is invalid, please login again",
+    "unathorized": "You are not authorized to proceed",
+    "email-not-allowed": "Email is not allowed to change",
+    "password-not-allowed": "Password is not allow to change here, please do reset password",
+    "wrong-creds": "Credentials is wrong, please try again",
+    "not-enough-info": "Provied info is not enough",
+    "user-deleted": "User is already deleted",
+    "owner-allowed": "Only owner is allowed to create",
+    "token-invalid": "Your token is invalid, please try again",
+    "email-exists": "Email is already exists, please signup with different",
+    "not-valid-email-format": "Email is not valid",
+    "otp-verfication-error": "Otp is not valid, please generate another otp",
+    "request-not-valid": "Request is not valid, request must contain some fields"
+  }
+  

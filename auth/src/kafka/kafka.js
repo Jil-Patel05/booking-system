@@ -1,33 +1,37 @@
 const { Kafka } = require("./kafkaConfig");
 
 async function createTopics(topic, numberOfPartion) {
-  console.log("Creation of topics");
-  const admin = Kafka.admin();
-  admin.connect();
+  try {
+    console.log("admin connecting....");
+    const admin = Kafka.admin();
+    admin.connect();
+    console.log("admin connected....");
 
-  const topicList = await admin.listTopics();
+    const topicList = await admin.listTopics();
+    if (topicList.includes(topic)) {
+      console.log("admin diconnected");
+      await admin.disconnect();
+      return;
+    }
 
-  console.log(topicList);
+    console.log("Topic creation started");
+    await admin.createTopics({
+      topics: [
+        {
+          topic: topic,
+          numPartitions: numberOfPartion,
+        },
+      ],
+      timeout: 5000,
+      validateOnly: false,
+    });
+    console.log("Topic crreated successfully");
 
-  if (topicList.includes(topic)) {
     await admin.disconnect();
     return;
+  } catch (err) {
+    console.log("Error while creating topic,", err.message);
   }
-
-  console.log("topic creatiin started");
-
-  await admin.createTopics({
-    topics: [
-      {
-        topic: topic,
-        numPartitions: numberOfPartion,
-      },
-    ],
-    timeout: 5000,
-    validateOnly: false,
-  });
-
-  await admin.disconnect();
 }
 
 function connectProducer() {
@@ -37,7 +41,9 @@ function connectProducer() {
 
 async function produceMessage(topic, numberOfPartion, key, message) {
   await createTopics(topic, numberOfPartion);
+  console.log("Topic created");
   const producer = connectProducer();
+  console.log("producer connected");
   await producer.connect();
 
   console.log("produce messages");

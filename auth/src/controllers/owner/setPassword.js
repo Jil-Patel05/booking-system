@@ -1,5 +1,5 @@
 const Token = require("../../models/tokenModel");
-const Owner = require("../../models/ownerModel");
+const Admin = require("../../models/adminModel");
 const sentense = require("../../common/en-us.json");
 const ErrorHandler = require("../../helpers/errorHandler");
 const { STATUS_CODE } = require("../../common/common");
@@ -21,15 +21,15 @@ const setPassword = async (req, res, next) => {
         STATUS_CODE.CLIENT_BAD_REQUEST
       );
     }
-    const owner = await Owner.findOne({ _id, isUserDeleted: false }).exec();
-    if (!owner) {
+    const admin = await Admin.findOne({ _id, isUserDeleted: false }).exec();
+    if (!admin) {
       throw new ErrorHandler(
         sentense["user-deleted"],
         STATUS_CODE.CLIENT_BAD_REQUEST
       );
     }
-    owner.password = password;
-    await owner.save();
+    admin.password = password;
+    await admin.save();
     await savedToken.deleteOne();
     res.status(STATUS_CODE.SUCCESS).json({
       sucess: true,

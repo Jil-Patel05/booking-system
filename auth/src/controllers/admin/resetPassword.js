@@ -1,22 +1,24 @@
-const Owner = require("../../models/ownerModel");
+const Admin = require("../../models/adminModel");
 const Token = require("../../models/tokenModel");
 const sentense = require("../../common/en-us.json");
 const ErrorHandler = require("../../helpers/errorHandler");
 const { STATUS_CODE, TOPICS } = require("../../common/common");
 const crypto = require("crypto");
 const bcrypt = require("bcryptjs");
+const { produceMessage } = require("../../kafka/kafka");
+const NUMBER_OF_PARTITION = 1;
 
 const resetPassword = async (req, res, next) => {
   const { email } = req.body;
   try {
-    const owner = await Owner.findOne({ email, isUserDeleted: false });
-    if (!owner) {
+    const admin = await Admin.findOne({ email, isUserDeleted: false });
+    if (!admin) {
       throw new ErrorHandler(
         sentense["wrong-creds"],
         STATUS_CODE.CLIENT_BAD_REQUEST
       );
     }
-    const token = await Token.findOne({ email });
+    const token = await Token.findOne({ userId: admin._id });
     if (token) {
       await token.deleteOne();
     }
@@ -25,8 +27,7 @@ const resetPassword = async (req, res, next) => {
 
     const tokenUrl = `${req.protocol}://${req.get(
       "host"
-    )}/resetpassword?token=${tokenHash}&id=${owner._id}`;
-
+    )}/resetpassword?token=${tokenHash}&id=${admin._id}`;
     const emailTemplate = `
     <p> You're receiving this e-mail because you or someone else has requested a password reset for your user account at.
     <br/>
@@ -39,10 +40,12 @@ const resetPassword = async (req, res, next) => {
     `;
 
     const savedToken = new Token({
-      userId: owner._id,
+      userId: admin._id,
       token: tokenHash,
     });
     savedToken.save();
+
+    console.log("tokens");
 
     const key = 1;
     const message = {

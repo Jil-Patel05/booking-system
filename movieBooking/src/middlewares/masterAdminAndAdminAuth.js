@@ -1,7 +1,7 @@
 const jwt = require("jsonwebtoken");
 const ErrorHandler = require("../helpers/errorHandler");
-const { ROLES } = require("../models/enums");
 const sentense = require("../common/en-us.json");
+const { ROLES } = require("../common/common");
 const { STATUS_CODE } = require("../common/common");
 
 const masterAdminAndAdminAuth = (req, res, next) => {
@@ -18,7 +18,7 @@ const masterAdminAndAdminAuth = (req, res, next) => {
     if (payload.role !== ROLES.ADMIN && payload.role !== ROLES.MASTER_ADMIN) {
       throw new ErrorHandler(sentense["unathorized"], STATUS_CODE.UNAUTHORIZED);
     }
-    req.role = payload.role;
+    req.userId = payload.id;
     next();
   } catch (err) {
     next(err);

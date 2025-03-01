@@ -24,8 +24,8 @@ router.get("/login", loginAdmin);
 router.post("/logout", masterAdminAndAdminAuth, logoutAdmin);
 router.patch("/editprofile", adminAuth, editProfileAdmin);
 router.patch("/resetfirstpassword", adminAuth, resetFirstAdminPassword);
-router.patch("/passwordreset", adminAuth, resetPassword);
-router.patch("/setpassword", adminAuth, setPassword);
+router.patch("/passwordreset", resetPassword);
+router.patch("/setpassword", setPassword);
 
 // masterAdmin things
 router.get("/editadmin", masterAdminAuth, editAdmin);
