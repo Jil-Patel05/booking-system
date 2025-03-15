@@ -23,8 +23,8 @@ router.get("/login", loginOwner);
 router.post("/logout", ownerAuth, logoutOwner);
 router.patch("/editprofile", ownerAuth, editProfileOwner);
 router.patch("/resetfirstpassword", ownerAuth, resetFirstOwnerPassword);
-router.patch("/passwordreset", ownerAuth, resetPassword);
-router.patch("/setpassword", ownerAuth, setPassword);
+router.patch("/passwordreset", resetPassword);
+router.patch("/setpassword", setPassword);
 
 // admin things
 router.get("/editowner", masterAdminAndAdminAuth, editOwner);

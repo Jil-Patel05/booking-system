@@ -10,11 +10,11 @@ async function getQuery(query, params) {
     const [row, fields] = await pool.execute(query, params);
     return [row, fields];
   } catch (err) {
-      console.log("Error while fetching data from MySQL,", err.message);
+    console.log("Error while fetching data from MySQL,", err.message);
   }
 }
 
-async function insertQuery(query, params) {
+async function insetAndUpdateQuery(query, params, next) {
   try {
     const result = await pool.execute(query, params);
     return result;
@@ -23,4 +23,4 @@ async function insertQuery(query, params) {
   }
 }
 
-module.exports = { getQuery, insertQuery };
+module.exports = { getQuery, insetAndUpdateQuery };

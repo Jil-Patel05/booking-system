@@ -1,10 +1,9 @@
 const jwt = require("jsonwebtoken");
 const ErrorHandler = require("../helpers/errorHandler");
 const sentense = require("../common/en-US.json");
-const { ROLES } = require("../common/common");
-const { STATUS_CODE } = require("../common/common");
+const { STATUS_CODE, ROLES } = require("../common/common");
 
-const masterAdminAndAdminAuth = (req, res, next) => {
+const ownerAuth = (req, res, next) => {
   const token = req.cookies.token;
   try {
     const isJwtTokenValid = jwt.verify(token, process.env.JWT_SECRET);
@@ -15,7 +14,7 @@ const masterAdminAndAdminAuth = (req, res, next) => {
       );
     }
     const payload = jwt.decode(token);
-    if (payload.role !== ROLES.ADMIN && payload.role !== ROLES.MASTER_ADMIN) {
+    if (payload.role !== ROLES.OWNER) {
       throw new ErrorHandler(sentense["unathorized"], STATUS_CODE.UNAUTHORIZED);
     }
     req.userId = payload.id;
@@ -25,4 +24,4 @@ const masterAdminAndAdminAuth = (req, res, next) => {
   }
 };
 
-module.exports = { masterAdminAndAdminAuth };
+module.exports = { ownerAuth };

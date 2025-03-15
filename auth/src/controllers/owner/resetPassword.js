@@ -2,9 +2,11 @@ const Owner = require("../../models/ownerModel");
 const Token = require("../../models/tokenModel");
 const sentense = require("../../common/en-us.json");
 const ErrorHandler = require("../../helpers/errorHandler");
-const { STATUS_CODE } = require("../../common/common");
+const { STATUS_CODE, TOPICS } = require("../../common/common");
+const { produceMessage } = require("../../kafka/kafka");
 const crypto = require("crypto");
 const bcrypt = require("bcryptjs");
+const NUMBER_OF_PARTITION = 1;
 
 const resetPassword = async (req, res, next) => {
   const { email } = req.body;
@@ -16,7 +18,7 @@ const resetPassword = async (req, res, next) => {
         STATUS_CODE.CLIENT_BAD_REQUEST
       );
     }
-    const token = await Token.findOne({ email });
+    const token = await Token.findOne({ userId: owner._id });
     if (token) {
       await token.deleteOne();
     }
