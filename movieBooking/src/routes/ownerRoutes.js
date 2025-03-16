@@ -6,7 +6,11 @@ const {
   getCinema,
   getAllCinema,
 } = require("../controllers/owner/cinema");
-const { addScreen, editScreen } = require("../controllers/owner/screen");
+const {
+  addScreen,
+  editScreen,
+  getAllScreen,
+} = require("../controllers/owner/screen");
 const router = express.Router();
 
 router.post("/addcinema", ownerAuth, addCinema);
@@ -17,6 +21,6 @@ router.get("/getallcinema/:userId", ownerAuth, getAllCinema);
 router.post("/addscreen", ownerAuth, addScreen);
 router.patch("/editscreen", ownerAuth, editScreen);
 // router.get("/getcinema/:userId/:id", ownerAuth, getCinema);
-// router.get("/getallcinema/:userId", ownerAuth, getAllCinema);
+router.get("/getallscreen/:userId", ownerAuth, getAllScreen);
 
 module.exports = router;

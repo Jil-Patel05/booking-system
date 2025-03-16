@@ -9,7 +9,7 @@ const calculateScreenIds = (screenReq, firstInsertedId) => {
   screenReq.screens.forEach((screen) => {
     screen.rowsInfo.forEach((row) => {
       const rowData = {
-        screenId: firstInsertedId,
+        screenId: id,
         rowName: row.rowName,
         noOfRowSeat: row.noOfRowSeat,
         rowType: row.rowType,
@@ -41,7 +41,7 @@ const calculateRowIds = (
           rowId: rowIdStartFrom,
           screenId: screenIdStartFrom,
           cinemaId: cinemaId,
-          seatName: i,
+          seatName: `${row.rowName}${i}`,
           statusId: seatStatusId,
         };
         seatInfo.push(seatData);
